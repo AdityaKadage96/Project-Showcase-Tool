@@ -1,0 +1,35 @@
+body {
+  background-color: #f0f2f5;
+  padding-top: 70px; /* Adjust to your navbar height */
+}
+
+h1 {
+  color: #333;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+
+/* Hide links initially */
+.project-links {
+  display: none;
+}
+
+/* Show only when card is hovered */
+.card:hover .project-links {
+  display: block;
+}
+
+
+.container {
+  /* display: flex; */
+  justify-content: center; /* Horizontal center */
+  align-items: center;     /* Vertical center */
+  /* height: 60px;            Optional: fixed height */
+}
+
+.add-form-container {
+    margin-bottom: 50px; /* Creates space above the footer */
+}

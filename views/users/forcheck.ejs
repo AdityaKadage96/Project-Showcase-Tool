@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+
+  <!-- Bootstrap & Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
+
+  <style>
+    body {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+    }
+
+    .center-container {
+      min-height: calc(100vh - 70px); /* subtract navbar height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 70px; /* reserve space for navbar */
+    }
+
+    .login-card {
+      background-color: white;
+      padding: 2.5rem 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .login-card h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .form-control {
+      background-color: #f1f1f1;
+    }
+
+    .btn-primary {
+      background-color: #0072ff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0055cc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar fixed at top -->
+  <%- include("../partials/header") %>
+
+  <div class="center-container">
+    <div class="login-card">
+     <h1 class="text-center fw-bold display-6 mb-4">
+  <i class="bi bi-box-arrow-in-right text-primary me-2"></i>
+  Sign in to your account
+</h1>
+
+      <!-- <h2><i class="bi bi-box-arrow-in-right"></i> Login</h2> -->
+
+      <!-- <% if (error) { %>
+        <div class="alert alert-danger text-center"><%= error %></div>
+      <% } %>
+
+      <% if (success) { %>
+        <div class="alert alert-success text-center"><%= success %></div>
+      <% } %> -->
+
+      <%- include("../partials/alerts") %>
+
+
+      <form action="/auth/login" method="POST">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" name="username" class="form-control" id="username" required />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" name="password" class="form-control" id="password" required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </button>
+      </form>
+
+      <p class="mt-3 text-center text-muted">
+        Don't have an account? <a href="/auth/register">Register</a>
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
+<!-- resiter.ejs below code -->
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Register</title>
+
+  <!-- Bootstrap & Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
+
+  <style>
+    body {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+    }
+
+    .center-container {
+      min-height: calc(100vh - 70px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 70px;
+    }
+
+    .register-card {
+      background-color: white;
+      padding: 2.5rem 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .register-card h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .form-control {
+      background-color: #f1f1f1;
+    }
+
+    .btn-primary {
+      background-color: #0072ff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0055cc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <%- include("../partials/header") %>
+
+  <div class="center-container">
+    <div class="register-card">
+      <h2><i class="bi bi-person-plus"></i> Register</h2>
+     
+      <%- include("../partials/alerts") %>
+
+      <!-- <% if (error) { %>
+        <div class="alert alert-danger text-center"><%= error %></div>
+      <% } %>
+
+      <% if (success) { %>
+        <div class="alert alert-success text-center"><%= success %></div>
+      <% } %> -->
+
+      <form action="/auth/register" method="POST">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" name="username" class="form-control" id="username" required />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" name="email" class="form-control" id="email" required />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" name="password" class="form-control" id="password" required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+          <i class="bi bi-person-plus-fill"></i> Register
+        </button>
+      </form>
+
+      <p class="mt-3 text-center text-muted">
+        Already have an account? <a href="/auth/login">Login</a>
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
+<!-- Modern updated code for login.ejs -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #12121b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 0;
+    }
+    .login-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 15px;
+      padding: 2rem;
+      width: 350px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      color: #f5f5f5;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .login-card h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: background 0.3s;
+    }
+
+    input:focus {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background: linear-gradient(135deg, #6c63ff, #4a47d5);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #7f78ff, #5b58e0);
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .links a {
+      color: #6c63ff;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- ✅ Navbar fixed at top -->
+  <%- include("../partials/header") %>
+  <main>
+  <div class="login-card">
+    <h2>Login</h2>
+    <form action="/auth/login" method="POST">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="username" id="username" name="username" placeholder="Enter your username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit">Login</button>
+      <div class="links">
+        <a href="/auth/register">Don't have an account? Register</a>
+      </div>
+    </form>
+  </div>
+</main>
+<%- include("../partials/footer") %>
+</body>
+</html>
+
+
+
+<!-- Show.ejs code for future refrence working  -->
+
+<%- include("../partials/header") %>
+
+<div class="container py-5">
+
+  <div class="glass-card shadow-lg rounded-4 p-4">
+
+    <!-- Image Carousel -->
+    <% if (project.images && project.images.length > 0) { %>
+      <div id="carousel-<%= project._id %>" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="3000">
+        
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+          <% project.images.forEach((img, index) => { %>
+            <button type="button" data-bs-target="#carousel-<%= project._id %>" data-bs-slide-to="<%= index %>"
+              class="<%= index === 0 ? 'active' : '' %>" 
+              aria-current="<%= index === 0 ? 'true' : 'false' %>" 
+              aria-label="Slide <%= index + 1 %>"></button>
+          <% }) %>
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner rounded">
+          <% project.images.forEach((img, index) => { %>
+            <div class="carousel-item <%= index === 0 ? 'active' : '' %> text-center">
+              <img src="<%= img.url %>" 
+                   class="d-block mx-auto img-fluid rounded shadow-sm"
+                   style="max-height: 500px; object-fit: cover;" 
+                   alt="Project Image">
+            </div>
+          <% }) %>
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<%= project._id %>" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel-<%= project._id %>" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    <% } %>
+
+    <!-- Project Info -->
+    <div class="px-2">
+      <h2 class="fw-bold text-gradient mb-3"><%= project.title %></h2>
+      <p class="mb-2"><strong>Tech Stack:</strong> <%= project.techStack %></p>
+      <p class="mb-2"><strong>Description:</strong> <%= project.description || 'Not provided' %></p>
+
+  
+      <!-- Links -->
+      <div class="project-links mb-3">
+        <% if (project.githubLink) { %>
+          <a href="<%= project.githubLink %>" target="_blank" class="btn btn-outline-dark me-2 mb-2 shadow-sm">
+            <i class="bi bi-github me-1 "></i> GitHub
+          </a>
+        <% } %>
+        <% if (project.liveLink) { %>
+          <a href="<%= project.liveLink %>" target="_blank" class="btn btn-outline-success mb-2 shadow-sm">
+            <!-- <i class="fas fa-globe me-1"></i> Live Demo -->
+            <i class="bi bi-globe me-1"></i> Live Demo
+          </a>
+        <% } %>
+      </div>
+
+      <p class="mb-3"><strong>Posted by:</strong> 
+        <a href="/users/<%= project.owner._id %>" class="fw-semibold"><%= project.owner.username %></a>
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="d-flex flex-wrap gap-2">
+        <a href="/projects" class="btn btn-outline-secondary rounded-pill shadow-sm">
+          <i class="bi bi-arrow-left-circle me-1"></i> Back
+        </a>
+
+        <% if (currentUserId && project.owner && currentUserId.toString() === project.owner._id.toString()) { %>
+          <a href="/projects/<%= project._id %>/edit" class="btn btn-warning rounded-pill shadow-sm">
+            <i class="bi bi-pencil-square me-1"></i> Edit
+          </a>
+          <form action="/projects/<%= project._id %>?_method=DELETE" method="POST" class="d-inline">
+            <button class="btn btn-danger rounded-pill shadow-sm">
+              <i class="bi bi-trash me-1"></i> Delete
+            </button>
+          </form>
+        <% } %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* Glass Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    background: linear-gradient(135deg, #6366f1, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Buttons Shadow */
+  .btn {
+    transition: all 0.3s ease;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+  }
+
+  /* Carousel Images */
+  .carousel-inner img {
+    border-radius: 12px;
+  }
+</style>
+
+<%- include("../partials/footer") %>
+

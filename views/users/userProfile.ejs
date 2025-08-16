@@ -1,0 +1,164 @@
+<%- include("../partials/header") %>
+
+<div class="container py-5">
+
+  <h2 class="fw-bold text-gradient mb-4 text-center"><%= user.username %>'s Projects</h2>
+
+  <% if (projects.length === 0) { %>
+    <div class="alert alert-warning shadow-sm rounded-pill px-4 py-3 text-center">
+      This user hasn't posted any projects yet.
+    </div>
+  <% } else { %>
+    <div class="row g-4">
+      <% projects.forEach(project => { %>
+        <div class="col-md-4">
+          <div class="glass-card shadow-lg rounded-4 overflow-hidden h-100 d-flex flex-column">
+
+            <!-- Project Image -->
+            <% if (project.images && project.images.length > 0) { %>
+              <img src="<%= project.images[0].url %>" 
+                   class="project-img w-100" 
+                   alt="<%= project.title %> preview">
+            <% } else { %>
+              <div class="d-flex align-items-center justify-content-center bg-dark text-light project-img w-100">
+                No Image
+              </div>
+            <% } %>
+
+            <!-- Card Body -->
+            <div class="card-body d-flex flex-column p-3">
+              <h5 class="fw-bold text-gradient mb-2 fs-5"><%= project.title %></h5>
+              <p class="text-dark small mb-1"><strong>Tech Stack:</strong> <%= project.techStack %></p>
+              <p class="text-dark small flex-grow-1 mb-3"><strong>Description:</strong> 
+                <%= project.description.length > 100 ? project.description.substring(0, 100) + "..." : project.description %>
+              </p>
+
+              <!-- Posted By -->
+              <p class="text-white small mb-3">
+                <i class="bi bi-person-circle me-1"></i>
+                Posted by: 
+                <a href="/users/<%= project.owner._id %>" class="text-decoration-none text-gradient fw-semibold">
+                  <%= project.owner.username %>
+                </a>
+              </p>
+
+              <!-- Project Links -->
+              <!-- <div class="mb-3 d-flex flex-wrap gap-2">
+                <% if (project.githubLink) { %>
+                  <a href="<%= project.githubLink %>" target="_blank" class="btn btn-outline-dark btn-sm shadow-sm">
+                    <i class="bi bi-github me-1"></i> GitHub
+                  </a>
+                <% } %>
+                <% if (project.liveLink) { %>
+                  <a href="<%= project.liveLink %>" target="_blank" class="btn btn-outline-success btn-sm shadow-sm">
+                    <i class="bi bi-globe me-1"></i> Live Demo
+                  </a>
+                <% } %>
+              </div> -->
+
+              <!-- View Button -->
+                <a href="/projects/<%= project._id %>" class="btn btn-primary btn-sm mt-auto  rounded  w-55">
+                <i class="bi bi-eye me-1"></i> View
+              </a>
+              <!-- <a href="/projects/<%= project._id %>" class="btn btn-primary btn-sm mt-auto rounded-pill shadow-sm w-100">
+                <i class="bi bi-eye me-1"></i> View
+              </a> -->
+            </div>
+
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<style>
+  /* Glass Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    background: linear-gradient(135deg, #6366f1, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Project Image */
+  .project-img {
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Buttons Hover */
+  .btn {
+    transition: all 0.3s ease;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.25);
+  }
+
+  /* Card Body */
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  /* Text color inside card */
+  .card-body p {
+    color: #e0e0e0;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+    .project-img { height: 180px; }
+  }
+</style>
+
+<%- include("../partials/footer") %>
+
+
+
+
+
+<%- include("../partials/header") %>
+
+<div class="container mt-5">
+  <h2 class="mb-4"><%= user.username %>'s Projects</h2>
+
+  <div class="row">
+    <% if (projects.length === 0) { %>
+      <p class="text-muted">This user hasn't posted any products yet.</p>
+    <% } %>
+
+    <% projects.forEach(project => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow">
+          <% if (project.images && project.images.length > 0) { %>
+            <img src="<%= project.images[0].url %>" class="card-img-top" style="height: 200px; object-fit: cover;">
+          <% } %>
+          <div class="card-body">
+            <h5 class="card-title"><%= project.title %></h5>
+            <p class="card-text"><%= project.description %></p>
+            <a href="/projects/<%= project._id %>" class="btn btn-primary btn-sm">View</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

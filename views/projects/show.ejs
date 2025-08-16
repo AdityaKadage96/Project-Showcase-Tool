@@ -1,0 +1,144 @@
+
+
+<%- include("../partials/header") %>
+     
+  <div class="container mt-5">
+  <div class="card shadow-lg rounded p-3">
+
+    <!-- Image Carousel -->
+    <% if (project.images && project.images.length > 0) { %>
+      <div id="carousel-<%= project._id %>" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="3000">
+        
+        <!-- Dot Indicators -->
+        <div class="carousel-indicators">
+          <% project.images.forEach((img, index) => { %>
+            <button type="button" data-bs-target="#carousel-<%= project._id %>" data-bs-slide-to="<%= index %>"
+              class="<%= index === 0 ? 'active' : '' %>" 
+              aria-current="<%= index === 0 ? 'true' : 'false' %>" 
+              aria-label="Slide <%= index + 1 %>"></button>
+          <% }) %>
+        </div>
+
+        <!-- Image Slides -->
+        <div class="carousel-inner text-center bg-light py-4 rounded">
+          <% project.images.forEach((img, index) => { %>
+            <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+              <img src="<%= img.url %>" 
+                   class="d-block mx-auto img-fluid rounded shadow-sm"
+                   style="max-height: 500px; object-fit: contain;" 
+                   alt="Product Image">
+            </div>
+          <% }) %>
+        </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<%= project._id %>" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel-<%= project._id %>" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    <% } %>
+
+    <!-- Product Info -->
+    <div class="card-body">
+      <!-- <h2 class="card-title mb-3"><%= project.title %></h2> -->
+        <h2 class="fw-bold text-gradient mb-3"><%= project.title %></h2>
+      <!-- <p><strong>Posted by:</strong> 
+           <a href="/users/<%= project.owner._id %>"><%= project.owner.username %></a>
+       </p> -->
+       <p>
+  <i class="fas fa-user me-1"></i>
+  <strong>Posted by:</strong> 
+  <a href="/users/<%= project.owner._id %>" class="fw-semibold">
+     <%= project.owner.username %>
+  </a>
+</p>
+      <p class="mb-2"><strong>Tech Stack:</strong> <%= project.techStack %></p>
+      <% if (project.description) { %>
+        <p class="mb-2"><strong>Description:</strong> <%= project.description %></p>
+      <% } else { %>
+        <p class="mb-2"><strong>Description:</strong> Not provided</p>
+      <% } %>
+      
+
+      <!-- 🔗 Links (Hidden until hover) -->
+  <div class="project-links">
+    <% if (project.githubLink) { %>
+      <a href="<%= project.githubLink %>" target="_blank" class="btn btn-outline-dark me-2 mb-2 shadow-sm">
+            <i class="bi bi-github me-1 "></i> GitHub
+          </a>
+      <!-- <p class="card-text">
+        <strong>GitHub Link:</strong> 
+        <a href="<%= project.githubLink %>" target="_blank"> GitHub</a>
+      </p> -->
+    <% } %>
+
+    <% if (project.liveLink) { %>
+                <a href="<%= project.liveLink %>" target="_blank" class="btn btn-outline-dark mb-2 shadow-sm">
+            <i class="fas fa-globe me-1"></i> Live Demo
+            <!-- <i class="bi bi-globe me-1"></i> Live Demo -->
+          </a>
+      <!-- <p class="card-text">
+        <strong>Live Project:</strong> 
+        <a href="<%= project.liveLink %>" target="_blank">LiveProject Link</a>
+      </p> -->
+    <% } %>
+  </div>
+      <!-- <p class="mb-2"><strong>GitHub Link:</strong> <%= project.githubLink %></p>
+      <p class="mb-2"><strong>LiveProject Link:</strong> <%= project.liveLink %></p> -->
+
+       <!-- <p><strong>Posted by:</strong> 
+           <a href="/users/<%= project.owner._id %>"><%= project.owner.username %></a>
+       </p> -->
+      <a href="/projects" class="btn btn-outline-secondary me-2">Back</a>
+      <% if (currentUserId && project.owner && currentUserId.toString() === project.owner._id.toString()) { %>
+        <a href="/projects/<%= project._id %>/edit" class="btn btn-warning me-2">Edit</a>
+        <form action="/projects/<%= project._id %>?_method=DELETE" method="POST" class="d-inline">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Glass Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    background: linear-gradient(135deg, #6366f1, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Buttons Shadow */
+  .btn {
+    transition: all 0.3s ease;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+  }
+
+  /* Carousel Images */
+  .carousel-inner img {
+    border-radius: 12px;
+  }
+</style>
+
+
+<%- include("../partials/footer") %>

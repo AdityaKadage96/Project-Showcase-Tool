@@ -1,0 +1,121 @@
+
+<%- include("../partials/header") %>
+        
+       <!-- <% if (!currentUserId) { %>
+  <p>You're not logged in</p>
+<% } else { %>
+  <p>Welcome! Your ID is: <%= currentUserId %></p>
+<% } %> -->
+
+<!-- Login Status -->
+<div class="container mt-4">
+  <% if (!currentUserId) { %>
+    <div class="alert alert-warning text-center shadow-sm rounded">
+      <i class="bi bi-exclamation-circle me-2"></i> You are not logged in.
+    </div>
+  <% } else { %>
+    <div class="alert alert-success text-center shadow-sm rounded">
+      <i class="bi bi-person-circle me-2"></i> Welcome! Your ID is: <strong><%= currentUserId %></strong>
+       
+    </div>
+  <% } %>
+</div>
+
+<section class="add-form-container">
+    <!-- Your Add Form -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <!-- <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Add New Project</h3>
+        </div> -->
+        <div class="card-header" style="background: linear-gradient(135deg, #6366f1, #22d3ee); color: white; border-bottom: none;">
+  <h3 class="mb-0 fw-semibold text-center">Add New Project</h3>
+</div>
+
+
+        <div class="card-body">
+          <form action="/projects" method="POST" enctype="multipart/form-data">
+            
+            <!-- Product Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Project Name</label>
+              <input type="text" class="form-control" id="name" name="title" required placeholder="Enter project title">
+            </div>
+
+            <!-- Price -->
+            <!-- <div class="mb-3">
+              <label for="price" class="form-label">Price (₹)</label>
+              <input type="number" class="form-control" id="price" name="price" required placeholder="Enter price">
+            </div> -->
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" name="description" rows="4" required placeholder="Enter product description"></textarea>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="mb-3">
+              <label for="category" class="form-label">Tech Stack</label>
+              <input type="text" class="form-control" id="category" name="techStack" required placeholder="Enter techStack">
+            </div>
+            <!-- Github Link-->
+            <div class="mb-3">
+              <label for="category" class="form-label">GitHub Link</label>
+              <input type="text" class="form-control" id="category" name="githubLink" required placeholder="Enter githubLink">
+            </div>
+
+            <!-- Live Project Link -->
+            <div class="mb-3">
+              <label for="category" class="form-label">Live Project Link</label>
+              <input type="text" class="form-control" id="category" name="liveLink" required placeholder="Enter liveProjectLink">
+            </div>
+
+            <!-- Images -->
+            <div class="mb-3">
+              <label for="images" class="form-label">Project Images</label>
+              <input class="form-control" type="file" name="images" id="images" accept="image/*" multiple required onchange="previewMultipleImages(event)">
+            </div>
+
+            <!-- Multiple Image Previews -->
+            <div class="mb-3">
+              <div id="previewContainer" class="d-flex flex-wrap justify-content-center gap-2"></div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <a href="/projects" class="btn btn-secondary">Back</a>
+              <button type="submit" class="btn btn-primary">Add Project</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- Preview Multiple Images -->
+<script>
+  function previewMultipleImages(event) {
+    const files = event.target.files;
+    const container = document.getElementById("previewContainer");
+    container.innerHTML = ""; // Clear old previews
+
+    Array.from(files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.style.maxHeight = "120px";
+        img.style.maxWidth = "120px";
+        img.classList.add("img-thumbnail");
+        container.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+</script>
+
+<%- include("../partials/footer") %>
