@@ -6,3 +6,5 @@ node_modules/
 
 #privious version code ignore here
 views/users/forcheck.ejs
+
+public/uploads

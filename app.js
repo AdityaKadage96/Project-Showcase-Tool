@@ -18,12 +18,14 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 // ⬇️ Passport-related imports
 const passport = require("passport");
-const LocalStrategy = require("passport-local");
+//const LocalStrategy = require("passport-local");
 
-// ✅ MongoDB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/productCatalog")
+
+
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => console.log("❌ MongoDB connection error:", err));
+  .catch(err => console.log("❌ MongoDB error", err));
+
 
 // ✅ Express & Middleware
 app.set("view engine", "ejs");
@@ -34,13 +36,14 @@ app.use(express.json());
 
 // ✅ Session setup using MongoDB as session store
 const sessionOptions = {
-  secret: "supersecret", // Use process.env.SESSION_SECRET in production
+  secret: process.env.SESSION_SECRET, // Use process.env.SESSION_SECRET in production
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: "mongodb://127.0.0.1:27017/Projec-Showcase-Tool",
-    collectionName: "sessions"
+  mongoUrl: process.env.MONGO_URI,
+  collectionName: "sessions"
   }),
+
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 // 1 day
   }
@@ -69,6 +72,7 @@ app.use((req, res, next) => {
   res.locals.session = req.session;
   //res.locals.currentUser = req.user;
   //res.locals.currentUserId = req.session.userId;
+  res.locals.currentUsername = req.session?.user?.username || null;
   res.locals.currentUserId = req.user ? req.user._id.toString() : null;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -88,7 +92,10 @@ app.get("/", (req, res) => {
   res.redirect("/projects");
 });
 
-// ✅ Start the Server
-app.listen(3000, () => {
-  console.log("🚀 Server running at http://localhost:3000");
+
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

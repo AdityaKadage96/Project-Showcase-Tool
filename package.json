@@ -1,4 +1,9 @@
-{"name": "project-showcase-tool",
+{
+  "engines":{
+    "node":"20.14.0"
+  },
+  
+  "name": "project-showcase-tool",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {

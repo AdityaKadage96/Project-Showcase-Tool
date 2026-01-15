@@ -11,6 +11,7 @@ function isLoggedIn(req, res, next) {
 
 router.get("/profile", isLoggedIn, getMyProfile);
 
+
 // Public profile route
 router.get("/users/:id", getPublicProfile);
 

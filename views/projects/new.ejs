@@ -1,102 +1,100 @@
 
 <%- include("../partials/header") %>
-        
-       <!-- <% if (!currentUserId) { %>
-  <p>You're not logged in</p>
-<% } else { %>
-  <p>Welcome! Your ID is: <%= currentUserId %></p>
-<% } %> -->
 
-<!-- Login Status -->
+<!-- 🚀 Login Status -->
 <div class="container mt-4">
-  <% if (!currentUserId) { %>
-    <div class="alert alert-warning text-center shadow-sm rounded">
+  <% if (!currentUsername) { %>
+    <div class="alert alert-warning text-center shadow rounded shadow-sm">
       <i class="bi bi-exclamation-circle me-2"></i> You are not logged in.
     </div>
   <% } else { %>
-    <div class="alert alert-success text-center shadow-sm rounded">
-      <i class="bi bi-person-circle me-2"></i> Welcome! Your ID is: <strong><%= currentUserId %></strong>
-       
+    <div class="alert alert-success text-center shadow rounded shadow-sm">
+      <i class="bi bi-person-circle me-2"></i> Welcome, <strong><%= currentUsername %></strong> 🎉
     </div>
   <% } %>
 </div>
 
+<!-- 🌟 Add Project Form -->
 <section class="add-form-container">
-    <!-- Your Add Form -->
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow">
-        <!-- <div class="card-header bg-primary text-white">
-          <h3 class="mb-0">Add New Project</h3>
-        </div> -->
-        <div class="card-header" style="background: linear-gradient(135deg, #6366f1, #22d3ee); color: white; border-bottom: none;">
-  <h3 class="mb-0 fw-semibold text-center">Add New Project</h3>
-</div>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-9 col-lg-8">
+        <div class="card glass-card border-0 shadow-lg rounded-4">
 
+          <!-- Header -->
+          <div class="card-header text-center py-4"
+               style="background: linear-gradient(135deg, #6366f1, #22d3ee); color: white; border: none;">
+            <h3 class="fw-bold mb-0">✨ Add New Project</h3>
+            <p class="small mb-0 opacity-75">Showcase your awesome creation to the world</p>
+          </div>
 
-        <div class="card-body">
-          <form action="/projects" method="POST" enctype="multipart/form-data">
-            
-            <!-- Product Name -->
-            <div class="mb-3">
-              <label for="name" class="form-label">Project Name</label>
-              <input type="text" class="form-control" id="name" name="title" required placeholder="Enter project title">
-            </div>
+          <!-- Form Body -->
+          <div class="card-body p-4">
+            <form action="/projects" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+              
+              <!-- Project Name -->
+              <div class="mb-3">
+                <label for="name" class="form-label fw-semibold">📌 Project Name</label>
+                <input type="text" class="form-control modern-input" id="name" name="title" 
+                       required placeholder="Enter project title">
+              </div>
 
-            <!-- Price -->
-            <!-- <div class="mb-3">
-              <label for="price" class="form-label">Price (₹)</label>
-              <input type="number" class="form-control" id="price" name="price" required placeholder="Enter price">
-            </div> -->
+              <!-- Description -->
+              <div class="mb-3">
+                <label for="description" class="form-label fw-semibold">📝 Description</label>
+                <textarea class="form-control modern-input" id="description" name="description" rows="4" 
+                          required placeholder="Briefly describe your project"></textarea>
+              </div>
 
-            <!-- Description -->
-            <div class="mb-3">
-              <label for="description" class="form-label">Description</label>
-              <textarea class="form-control" id="description" name="description" rows="4" required placeholder="Enter product description"></textarea>
-            </div>
+              <!-- Tech Stack -->
+              <div class="mb-3">
+                <label for="techStack" class="form-label fw-semibold">⚡ Tech Stack</label>
+                <input type="text" class="form-control modern-input" id="techStack" name="techStack" 
+                       required placeholder="Eg: MERN, React Native, Python">
+              </div>
 
-            <!-- Tech Stack -->
-            <div class="mb-3">
-              <label for="category" class="form-label">Tech Stack</label>
-              <input type="text" class="form-control" id="category" name="techStack" required placeholder="Enter techStack">
-            </div>
-            <!-- Github Link-->
-            <div class="mb-3">
-              <label for="category" class="form-label">GitHub Link</label>
-              <input type="text" class="form-control" id="category" name="githubLink" required placeholder="Enter githubLink">
-            </div>
+              <!-- GitHub Link -->
+              <div class="mb-3">
+                <label for="githubLink" class="form-label fw-semibold">🌍 GitHub Repository</label>
+                <input type="url" class="form-control modern-input" id="githubLink" name="githubLink" 
+                       required placeholder="https://github.com/username/project">
+              </div>
 
-            <!-- Live Project Link -->
-            <div class="mb-3">
-              <label for="category" class="form-label">Live Project Link</label>
-              <input type="text" class="form-control" id="category" name="liveLink" required placeholder="Enter liveProjectLink">
-            </div>
+              <!-- Live Project Link -->
+              <div class="mb-3">
+                <label for="liveLink" class="form-label fw-semibold">🚀 Live Project</label>
+                <input type="url" class="form-control modern-input" id="liveLink" name="liveLink" 
+                       required placeholder="https://yourproject.com">
+              </div>
 
-            <!-- Images -->
-            <div class="mb-3">
-              <label for="images" class="form-label">Project Images</label>
-              <input class="form-control" type="file" name="images" id="images" accept="image/*" multiple required onchange="previewMultipleImages(event)">
-            </div>
+              <!-- Images -->
+              <div class="mb-3">
+                <label for="images" class="form-label fw-semibold">🖼 Project Images</label>
+                <input class="form-control modern-input" type="file" name="images" id="images" 
+                       accept="image/*" multiple required onchange="previewMultipleImages(event)">
+              </div>
 
-            <!-- Multiple Image Previews -->
-            <div class="mb-3">
-              <div id="previewContainer" class="d-flex flex-wrap justify-content-center gap-2"></div>
-            </div>
+              <!-- Image Previews -->
+              <div class="mb-3">
+                <div id="previewContainer" 
+                     class="d-flex flex-wrap justify-content-center gap-2"></div>
+              </div>
 
-            <div class="d-flex justify-content-between">
-              <a href="/projects" class="btn btn-secondary">Back</a>
-              <button type="submit" class="btn btn-primary">Add Project</button>
-            </div>
+              <!-- Buttons -->
+              <div class="d-flex justify-content-between">
+                <a href="/projects" class="btn btn-outline-secondary rounded px-4 py-2">⬅ Back</a>
+                <button type="submit" class="btn btn-gradient rounded px-4 py-2 fw-semibold">Add Project </button>
+              </div>
 
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </section>
-<!-- Preview Multiple Images -->
+
+<!-- JS: Preview Multiple Images -->
 <script>
   function previewMultipleImages(event) {
     const files = event.target.files;
@@ -110,12 +108,44 @@
         img.src = e.target.result;
         img.style.maxHeight = "120px";
         img.style.maxWidth = "120px";
-        img.classList.add("img-thumbnail");
+        img.classList.add("img-thumbnail", "shadow-sm", "rounded-3");
         container.appendChild(img);
       };
       reader.readAsDataURL(file);
     });
   }
 </script>
+
+<!-- 🎨 Modern Styles -->
+<style>
+  .glass-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+  }
+
+  .modern-input {
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease-in-out;
+  }
+  .modern-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+  }
+
+  .btn-gradient {
+    /* background: linear-gradient(135deg, #6366f1, #22d3ee); */
+    background: linear-gradient(135deg, #282bdb, #644de6);
+    color: white;
+    transition: transform 0.2s ease-in-out;
+    border: none;
+  }
+  .btn-gradient:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  }
+</style>
 
 <%- include("../partials/footer") %>

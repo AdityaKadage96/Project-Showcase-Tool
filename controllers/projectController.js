@@ -12,7 +12,7 @@ module.exports.getAllProjects = async (req, res) => {
    // res.render("products/index", { products });
    //res.render("products/index", { products, currentUserId:req.user ||req.user._id });
   // res.render("products/index", { products, currentUserId: req.session.userId });
-  res.render("projects/index", { projects, currentUserId: req.user ? req.user._id.toString() : null});
+  res.render("projects/index", { projects, currentUserId: req.user ? req.user._id.toString() : null, currentUsername: req.user ? req.user.username : null});
   } catch (err) {
     console.error("Error fetching products:", err);
     res.status(500).send("Internal Server Error");
@@ -26,7 +26,11 @@ module.exports.getAllProjects = async (req, res) => {
  * Render form to create a new product
  */
 module.exports.newProjectForm = (req, res) => {
-  res.render("projects/new");
+  // res.render("projects/new");
+  res.render("projects/new", {
+    currentUserId: req.user ? req.user._id : null,
+    currentUsername: req.user ? req.user.username : null   // <-- add this
+  });
 };
 
 /**
@@ -43,7 +47,10 @@ module.exports.createProject = async (req, res) => {
     const { title,description,techStack,githubLink,liveLink } = req.body;
 
     const images = req.files.map(file => ({
-      url: `/uploads/${file.filename}`,
+      // url: `/uploads/${file.filename}`,
+      // filename: file.filename,
+
+      url: file.path,
       filename: file.filename,
     }));
 
@@ -165,7 +172,10 @@ module.exports.updateProject = async (req, res) => {
     // If new files are uploaded
     if (req.files && req.files.length > 0) {
       const newImages = req.files.map((file) => ({
-        url: `/uploads/${file.filename}`,
+        // url: `/uploads/${file.filename}`,
+        // filename: file.filename,
+
+        url: file.path,
         filename: file.filename,
       }));
 

@@ -6,7 +6,16 @@ module.exports.getMyProfile = async (req, res) => {
   try {
     const user = req.user;
     const projects = await Project.find({ owner: user._id });
-    res.render("users/myProfile", { user, projects });
+     res.render("users/myProfile", { user, projects });
+  //   
+  // if (!req.user) {
+  //   return res.redirect("/auth/login");
+  // }
+
+  // res.render("users/myProfile", {
+  //   user: req.user,                // ✅ pass logged-in user
+  //   currentUsername: req.user.username // also pass username for header.ejs
+  // });
   } catch (err) {
     console.error(err);
     res.status(500).send("Server Error");
