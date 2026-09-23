@@ -9,7 +9,7 @@ Express.js, EJS, MongoDB, and Cloudinary.
 
 ## 🌐 Live Application
 
-**Live App:** https://projectshowcasetool.duckdns.org
+**Live App:** https://project-showcase-tool.onrender.com/projects
 
 ## 💻 Source Code
 
